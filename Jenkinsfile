@@ -9,9 +9,7 @@ releaseMavenApp {
     appName = "catalog"
     notifySlack = false
     runIntegrationTest = false
-    dockerRepositoryURL = 'docker.release.stakater.com:443'
+    serviceAccount = "stakater-release-jenkins"
+    dockerRepositoryURL = 'docker-release.workshop.stakater.com:443'
     javaRepositoryURL = 'http://nexus.release/repository/maven'
-    podVolumes = [
-        additionalSecretVolumes: [[secretName: 'k8s-current-cluster-kubeconfig', mountPath: '/home/jenkins/.kube']]
-    ]
 }
