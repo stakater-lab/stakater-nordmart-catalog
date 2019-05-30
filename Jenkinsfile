@@ -9,6 +9,7 @@ releaseMavenApp {
     appName = "catalog"
     notifySlack = false
     runIntegrationTest = false
+    serviceAccount = "stakater-release-jenkins"
     dockerRepositoryURL = 'docker-release.workshop.stakater.com:443'
     javaRepositoryURL = 'http://nexus.release/repository/maven'
 }
