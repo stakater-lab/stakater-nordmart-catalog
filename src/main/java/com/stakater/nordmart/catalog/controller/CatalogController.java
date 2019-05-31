@@ -1,7 +1,9 @@
-package com.stakater.nordmart.catalog;
+package com.stakater.nordmart.catalog.controller;
 
-import com.stakater.nordmart.common.IstioHeaders;
-import com.stakater.nordmart.common.Utils;
+import com.stakater.nordmart.catalog.domain.Product;
+import com.stakater.nordmart.catalog.repository.ProductRepository;
+import com.stakater.nordmart.catalog.common.IstioHeaders;
+import com.stakater.nordmart.catalog.common.Utils;
 import java.util.List;
 import java.util.Spliterator;
 import java.util.stream.Collectors;
