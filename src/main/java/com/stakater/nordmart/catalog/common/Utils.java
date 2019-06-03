@@ -1,4 +1,4 @@
-package com.stakater.nordmart.common;
+package com.stakater.nordmart.catalog.common;
 
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.context.request.RequestAttributes;

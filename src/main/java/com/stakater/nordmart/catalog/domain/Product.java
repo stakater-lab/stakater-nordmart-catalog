@@ -1,4 +1,4 @@
-package com.stakater.nordmart.catalog;
+package com.stakater.nordmart.catalog.domain;
 
 import java.io.Serializable;
 

@@ -1,16 +1,16 @@
-package com.stakater.nordmart.common;
+package com.stakater.nordmart.catalog.common;
 
 import javax.servlet.http.HttpServletRequest;
 
 public class IstioHeaders
 {
-    public final String requestId;
-    public final String b3TraceId;
-    public final String b3SpanId;
-    public final String b3ParentSpanId;
-    public final String b3Sampled;
-    public final String b3Flags;
-    public final String otSpanId;
+    private final String requestId;
+    private final String b3TraceId;
+    private final String b3SpanId;
+    private final String b3ParentSpanId;
+    private final String b3Sampled;
+    private final String b3Flags;
+    private final String otSpanId;
 
     public IstioHeaders(HttpServletRequest request)
     {
