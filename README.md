@@ -1,27 +1,61 @@
 # stakater-nordmart-catalog
 
-A maven spring boot catalog app for lab
+## Overview
+
+A maven spring boot catalog application for the product catalog and product information retrieval.
+
+## Dependencies
+
+It requires following things to be installed:
+
+* Java: ^8.0
+* Maven
 
 ## Deployment strategy
 
-### Helm Charts
+### Local deployment
 
-If you have configured helm on your cluster, you can deploy catalog microservice using our generic `Application` chart from our public chart repository and deploy it via helm using below mentioned commands
-
-Note:
-The default values are placed inside [values.yaml](deployment/values.yaml]).
+To run the application locally use the command given below:
 
 ```bash
-helm repo add stakater https://stakater.github.io/stakater-charts
-
-helm repo update
-
-helm install --name catalog --namespace nordmart-store stakater/application -f deployment/values.yaml
+mvn spring-boot:run
 ```
+
+### Docker
+
+To deploy app inside a docker container
+
+* Create a network if it doesn't already exist by executing
+
+  ```bash
+  docker network create --driver bridge nordmart-apps
+  ```
+
+* Build jar file of the app by executing
+
+  ```bash
+  mvn clean package
+  ```
+
+* Next build the image using
+
+  ```bash
+  docker build -t catalog .
+  ```
+
+* Finally run the image by executing
+
+  ```bash
+  docker run -d --name catalog --network nordmart-apps -p 8080:8080 catalog
+  ```
+
+### Helm Charts
+
+To deploy using helm, see the sample HelmRelease [here](https://github.com/stakater-lab/nordmart-dev-apps/blob/master/releases/catalog-helm-release.yaml)
 
 ## Prometheus
 
-### Dependencies
+### Prometheus Dependencies
 
 The following dependencies are needed to expose micrometer and application metrics
 
