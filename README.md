@@ -31,7 +31,7 @@ To deploy app inside a docker container
   docker network create --driver bridge nordmart-apps
   ```
 
-* Build jar file of the app by executing
+* Build jar file of the app by executing command given below:
 
   ```bash
   mvn clean package
