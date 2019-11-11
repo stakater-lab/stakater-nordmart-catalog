@@ -2,7 +2,7 @@
 
 ## Overview
 
-A maven spring boot catalog application for the product catalog and product information retrieval.
+A maven spring boot catalog application for the product catalog and product information retrieval
 
 ## Dependencies
 
