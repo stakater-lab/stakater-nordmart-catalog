@@ -39,11 +39,10 @@
       <artifactId>mysql-connector-java</artifactId>
       <version>8.0.18</version>
     </dependency>
-<!--    <dependency>-->
-<!--      <groupId>org.postgresql</groupId>-->
-<!--      <artifactId>postgresql</artifactId>-->
-<!--      <version>${postgresql.version}</version>-->
-<!--    </dependency>-->
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+    </dependency>
     <!-- For micrometer support -->
     <dependency>
       <groupId>io.micrometer</groupId>
