@@ -148,3 +148,4 @@ Dasbhoards given below can be used to monitor application by configuring them in
 * Catalog service metrics dashboard can be configured using this [config](https://github.com/stakater-lab/nordmart-dev-apps/blob/master/releases/catalog-service-dashboard.yaml).
 
   ![catalog-service.png](docs/images/catalog-service.png)
+  
