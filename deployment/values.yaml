@@ -8,10 +8,6 @@ deployment:
   env:
   - name: JAEGER_ENDPOINT
     value: "jaeger-collector.istio-system:14268/api/traces"
-  - name: JAEGER_PROPAGATION
-    value: "b3"
-  - name: JAEGER_TRACEID_128BIT
-    value: "true"
   imagePullSecrets: "docker-registry-nexus-secret"
 rbac:
   create: false
