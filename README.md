@@ -85,6 +85,17 @@ The following dependencies are needed to expose micrometer and application metri
 
 ### Configuration
 
+**Startup configuration**
+
+By default, application synchronizes state of the database on the startup with Kafka. This is helpful
+during testing. You can disable it by setting false to the kafka.sync.onstartup property.
+
+**Kafka configuration**
+* kafka.bootstrapAddress - address of the Kafka broker
+* kafka.products.topic - name of the topic where products will be send on CRU operations 
+
+**Micrometer configuration**
+
 Add the following properties to `application.properties` to expose the micrometer endpoint.
 
 ```bash
