@@ -110,7 +110,6 @@
             <artifactId>opentracing-spring-cloud-starter</artifactId>
             <version>0.0.7</version>
         </dependency>
-
         <dependency>
             <groupId>com.uber.jaeger</groupId>
             <artifactId>jaeger-core</artifactId>
@@ -121,7 +120,6 @@
             <artifactId>jaeger-b3</artifactId>
             <version>0.21.0</version>
         </dependency>
-
         <dependency>
             <groupId>io.opentracing.brave</groupId>
             <artifactId>brave-opentracing</artifactId>
