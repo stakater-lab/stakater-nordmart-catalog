@@ -7,7 +7,7 @@ deployment:
     tag: v0.0.2
   env:
   - name: JAEGER_ENDPOINT
-    value: "jaeger-collector.istio-system:14268/api/traces"
+    value: "http://jaeger-collector.istio-system:14268/api/traces"
   imagePullSecrets: "docker-registry-nexus-secret"
 rbac:
   create: false
