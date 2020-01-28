@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 @EnableKafka
 @EmbeddedKafka(
-        ports = {9092},
+        ports = {9093},
         partitions = 1,
         topics = "${kafka.products.topic}")
 class CatalogControllerTest extends BaseTest {
