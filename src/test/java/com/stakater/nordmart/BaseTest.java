@@ -12,11 +12,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = CatalogApplication.class,
         properties = "spring.kafka.bootstrap-servers=${spring.embedded.kafka.brokers}")
-@EnableKafka
-@EmbeddedKafka(
-        ports = {9092},
-        partitions = 1,
-        topics = "${kafka.products.topic}")
 public abstract class BaseTest {
 
 }
