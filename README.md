@@ -4,6 +4,23 @@
 
 A maven spring boot catalog application for the product catalog and product information retrieval.
 
+## User scenarios
+
+**Product operations**
+
+Service has API for CRUD operations for products:
+* Create (POST request against "/api/products/" URL) - service saves entity into the database and also sends product 
+create command to products topic of Kafka. Search service consumes this message and store product into Elasticsearch.
+ Product can be searched via Nordmart Web after that.
+* Update (PUT request against "/api/products/" URL) - service update entity into the database and also sends product 
+update command to products topic of Kafka. Search service consumes this message and updates product in Elasticsearch. 
+Updated product can be searched via Nordmart Web after that.
+* Delete (DELETE request against "/api/products/{itemaId}" URL) - service deletes entity from the database and also 
+sends product delete command to products topic of Kafka. Search service consumes this message and deletes product from 
+ Elasticsearch. Product no longer available for search via Nordmart Web after that.   
+* Read (GET request against "/api/products/{itemaId}" URL) - service exposes API to get product by itemId. Data about 
+product is got from Database.
+
 ## Dependencies
 
 It requires following things to be installed:
