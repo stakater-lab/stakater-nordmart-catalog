@@ -1,7 +1,5 @@
 package com.stakater.nordmart.catalog.controller;
 
-import com.stakater.nordmart.catalog.common.IstioHeaders;
-import com.stakater.nordmart.catalog.common.Utils;
 import com.stakater.nordmart.catalog.domain.Product;
 import com.stakater.nordmart.catalog.dto.ProductDto;
 import com.stakater.nordmart.catalog.exception.NotFoundException;
@@ -19,7 +17,15 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -73,6 +79,7 @@ public class CatalogController {
         return productList;
     }
 
+    @Traced
     @ApiOperation(value = "Saves product.",
             consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
@@ -99,6 +106,7 @@ public class CatalogController {
         }
     }
 
+    @Traced
     @ApiOperation(value = "Gets product by provided itemId. Returns 404 status if such product  was not found.",
             consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @GetMapping(path = "/{itemId}", produces = APPLICATION_JSON_VALUE)
