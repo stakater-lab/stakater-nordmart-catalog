@@ -8,6 +8,15 @@ deployment:
   env:
   - name: JAEGER_ENDPOINT
     value: "http://jaeger-collector.istio-system:14268/api/traces"
+  env:
+  - name: KEYCLOAK_REALM
+    value: "nordmart"
+  - name: KEYCLOAK_URL
+    value: "https://keycloak-security.DOMAIN:8180/auth/"
+  - name: KEYCLOAK_CLIENT_BACKEND
+    value: "stakater-nordmart-backend"
+  - name: KEYCLOAK_CLIENT_SECRET_KEY
+    value: "<concealed>"
   imagePullSecrets: "docker-registry-nexus-secret"
 rbac:
   create: false
