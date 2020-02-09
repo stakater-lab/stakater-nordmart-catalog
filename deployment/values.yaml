@@ -1,22 +1,83 @@
 applicationName: "catalog"
 deployment:
+  annotations:
   podLabels:
     app: catalog
+  volumes: {}
   image:
-    repository: docker.release.stakater.com:443/stakater/catalog
-    tag: v0.0.2
+    repository: stakater/stakater-nordmart-cart
+    tag: v0.0.1
   env:
+  - name: MYSQL_USER
+    valueFrom:
+      secretKeyRef:
+        name: mysql-secret
+        key: mysql_username
+  - name: MYSQL_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: mysql-secret
+        key: mysql_password
+  - name: MYSQL_HOST
+    value: "mysql-svc.default.svc.cluster.local"
+  - name: MYSQL_DB_NAME
+    value: "catalog"
   - name: KEYCLOAK_REALM
     value: "nordmart"
   - name: KEYCLOAK_URL
-    value: "https://keycloak-security.DOMAIN:8180/auth/"
+    value: "https://keycloak-dev.cluster.stakater.com/auth/"
   - name: KEYCLOAK_CLIENT_BACKEND
     value: "stakater-nordmart-backend"
   - name: KEYCLOAK_CLIENT_SECRET_KEY
-    value: "<concealed>"
-  imagePullSecrets: "docker-registry-nexus-secret"
+    value: "7672aea2-81ff-4aa2-affe-daf3bad10334"
+  - name: KAFKA_ADDRESS
+    value: "kafka-cluster-kafka-bootstrap.default:9092"
+  - name: JAEGER_ENDPOINT
+    value: "http://jaeger-collector.istio-system:14268/api/traces"
+
+  probes:
+    readinessProbe:
+      failureThreshold: 3
+      periodSeconds: 60
+      successThreshold: 1
+      timeoutSeconds: 1
+      initialDelaySeconds: 10
+      httpGet:
+        path: /actuator/health
+        port: 8080
+    livenessProbe:
+      failureThreshold: 3
+      periodSeconds: 60
+      successThreshold: 1
+      timeoutSeconds: 1
+      initialDelaySeconds: 10
+      httpGet:
+        path: /actuator/health
+        port: 8080
+
+service:
+  ports:
+  - port: 8080
+    name: https
 rbac:
-  create: false
+  create: true
   serviceAccount:
-    name: default
-configMap: {}
+    create: true
+configMap:
+  enabled: false
+
+ingress:
+  enabled: false
+  servicePort: 8080
+  hosts:
+    - chart-example.local
+  annotations: 
+    # kubernetes.io/ingress.class: external-ingress
+    # ingress.kubernetes.io/rewrite-target: /
+    # ingress.kubernetes.io/force-ssl-redirect: true
+  tls:
+    # Secrets must be manually created in the namespace.
+    # - secretName: chart-example-tls
+    #   hosts:
+    #     - chart-example.local
+
