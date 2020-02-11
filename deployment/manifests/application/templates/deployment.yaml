@@ -1,0 +1,50 @@
+---
+# Source: application/templates/deployment.yaml
+
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: catalog
+    group: com.stakater.platform
+    provider: stakater
+    version: "1.0.0"
+    chart: "application-0.0.12"
+    release: "RELEASE-NAME"
+    heritage: "Tiller"
+  annotations:
+    reloader.stakater.com/auto: "true"
+    
+  name: catalog
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: catalog
+        group: com.stakater.platform
+        provider: stakater
+        version: "1.0.0"
+        chart: "application-0.0.12"
+        release: "RELEASE-NAME"
+        heritage: "Tiller"
+        app: catalog
+        
+    spec:      
+      imagePullSecrets:
+      - name: docker-registry-nexus-secret
+      containers:
+      - name: catalog
+        image: "docker.release.stakater.com:443/stakater/catalog:v0.0.2"
+        imagePullPolicy: IfNotPresent
+        env:
+          - name: KEYCLOAK_REALM
+            value: nordmart
+          - name: KEYCLOAK_URL
+            value: https://keycloak-security.DOMAIN:8180/auth/
+          - name: KEYCLOAK_CLIENT_BACKEND
+            value: stakater-nordmart-backend
+          - name: KEYCLOAK_CLIENT_SECRET_KEY
+            value: <concealed>
+          
+      serviceAccountName: default        
