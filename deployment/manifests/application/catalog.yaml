@@ -1,4 +1,19 @@
 ---
+# Source: application/templates/serviceaccount.yaml
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app: catalog
+    group: com.stakater.platform
+    provider: stakater
+    version: "1.0.0"
+    chart: "application-0.0.12"
+    release: "RELEASE-NAME"
+    heritage: "Tiller"
+  name: catalog
+---
 # Source: application/templates/service.yaml
 
 apiVersion: v1
@@ -18,7 +33,8 @@ spec:
     app: catalog
     
   ports:
-    []
+    - name: https
+      port: 8080
     
 ---
 # Source: application/templates/deployment.yaml
@@ -34,9 +50,6 @@ metadata:
     chart: "application-0.0.12"
     release: "RELEASE-NAME"
     heritage: "Tiller"
-  annotations:
-    reloader.stakater.com/auto: "true"
-    
   name: catalog
 spec:
   replicas: 1
@@ -52,24 +65,59 @@ spec:
         heritage: "Tiller"
         app: catalog
         
-    spec:      
-      imagePullSecrets:
-      - name: docker-registry-nexus-secret
+    spec:
       containers:
       - name: catalog
-        image: "docker.release.stakater.com:443/stakater/catalog:v0.0.2"
+        image: "stakater/stakater-nordmart-cart:v0.0.1"
         imagePullPolicy: IfNotPresent
         env:
+          - name: MYSQL_USER
+            valueFrom:
+              secretKeyRef:
+                key: mysql_username
+                name: mysql-secret
+          - name: MYSQL_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: mysql_password
+                name: mysql-secret
+          - name: MYSQL_HOST
+            value: mysql-svc
+          - name: MYSQL_DB_NAME
+            value: catalog
           - name: KEYCLOAK_REALM
             value: nordmart
           - name: KEYCLOAK_URL
-            value: https://keycloak-security.DOMAIN:8180/auth/
+            value: https://keycloak-dev.DOMAIN/auth/
           - name: KEYCLOAK_CLIENT_BACKEND
             value: stakater-nordmart-backend
           - name: KEYCLOAK_CLIENT_SECRET_KEY
-            value: <concealed>
+            value: 7672aea2-81ff-4aa2-affe-daf3bad10334
+          - name: KAFKA_ADDRESS
+            value: kafka-cluster-kafka-bootstrap:9092
+          - name: JAEGER_ENDPOINT
+            value: http://jaeger-collector.istio-system:14268/api/traces
           
-      serviceAccountName: default        
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 60
+          successThreshold: 1
+          timeoutSeconds: 1
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 60
+          successThreshold: 1
+          timeoutSeconds: 1
+        
+      serviceAccountName: catalog        
 ---
 # Source: application/templates/clusterrole.yaml
 
@@ -96,7 +144,4 @@ spec:
 
 ---
 # Source: application/templates/secret.yaml
-
----
-# Source: application/templates/serviceaccount.yaml
 
