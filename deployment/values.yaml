@@ -25,7 +25,7 @@ deployment:
   - name: KEYCLOAK_REALM
     value: "nordmart"
   - name: KEYCLOAK_URL
-    value: "https://keycloak-dev.DOMAIN/auth/"
+    value: "https://keycloak-NAMESPACE.DOMAIN/auth/"
   - name: KEYCLOAK_CLIENT_BACKEND
     value: "stakater-nordmart-backend"
   - name: KEYCLOAK_CLIENT_SECRET_KEY
