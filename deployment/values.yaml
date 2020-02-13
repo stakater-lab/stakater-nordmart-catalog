@@ -5,8 +5,8 @@ deployment:
     app: catalog
   volumes: {}
   image:
-    repository: stakater/stakater-nordmart-cart
-    tag: v0.0.1
+    repository: stakater/stakater-nordmart-catalog
+    tag: v0.0.2
   env:
   - name: MYSQL_USER
     valueFrom:
