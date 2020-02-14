@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.stakater.nordmart</groupId>
     <artifactId>catalog</artifactId>
-    <version>v0.0.22</version>
+    <version>v0.0.23</version>
     <name>Nordmart Catalog Service</name>
     <description>Nordmart Catalog Service with Spring Boot</description>
     <properties>
