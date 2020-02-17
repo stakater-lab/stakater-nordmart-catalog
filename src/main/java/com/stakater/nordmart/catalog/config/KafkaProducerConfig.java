@@ -17,6 +17,10 @@ public class KafkaProducerConfig {
 
     @Value(value = "${kafka.bootstrapAddress}")
     private String bootstrapAddress;
+    @Value(value = "${kafka.retries}")
+    private String retries;
+    @Value(value = "${kafka.retriesInterval}")
+    private String retriesInterval;
 
     @Bean
     public ProducerFactory<String, String> producerFactory() {
@@ -30,6 +34,8 @@ public class KafkaProducerConfig {
         configProps.put(
                 ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
                 StringSerializer.class);
+        configProps.put(ProducerConfig.RETRIES_CONFIG, retries);
+        configProps.put(ProducerConfig.RETRY_BACKOFF_MS_CONFIG, retriesInterval);
         return new DefaultKafkaProducerFactory<>(configProps);
     }
 
