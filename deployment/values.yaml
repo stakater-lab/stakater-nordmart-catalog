@@ -1,5 +1,7 @@
 applicationName: "catalog"
 deployment:
+  additionalLabels:
+    appCategory: "backend"
   annotations:
   podLabels:
     app: catalog
