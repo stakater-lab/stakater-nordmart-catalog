@@ -1,0 +1,79 @@
+application:
+  applicationName: "catalog"
+  deployment:
+    additionalLabels:
+      appCategory: "backend"
+    annotations:
+    podLabels:
+      app: catalog
+    volumes: {}
+    image:
+      repository: stakater/stakater-nordmart-catalog
+      tag: v0.0.3
+    env:
+    - name: MYSQL_USER
+      valueFrom:
+        secretKeyRef:
+          name: catalog-sql-secret
+          key: mysql-username
+    - name: MYSQL_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: catalog-sql-secret
+          key: mysql-password
+    - name: MYSQL_HOST
+      value: "mysql-svc"
+    - name: MYSQL_DB_NAME
+      value: "catalog"
+    - name: KEYCLOAK_REALM
+      value: "nordmart"
+    - name: KEYCLOAK_URL
+      value: "https://keycloak-NAMESPACE.DOMAIN/auth/"
+    - name: KEYCLOAK_CLIENT_BACKEND
+      value: "stakater-nordmart-backend"
+    - name: KEYCLOAK_CLIENT_SECRET_KEY
+      value: "7672aea2-81ff-4aa2-affe-daf3bad10334"
+    - name: KAFKA_ADDRESS
+      value: "kafka-cluster-kafka-bootstrap.nordmart-dev.svc.cluster.local:9092"
+    - name: JAEGER_ENDPOINT
+      value: "http://jaeger-collector.istio-system:14268/api/traces"
+  
+    probes:
+      readinessProbe:
+        failureThreshold: 3
+        periodSeconds: 60
+        successThreshold: 1
+        timeoutSeconds: 1
+        initialDelaySeconds: 10
+        httpGet:
+          path: /actuator/health
+          port: 8080
+      livenessProbe:
+        failureThreshold: 3
+        periodSeconds: 60
+        successThreshold: 1
+        timeoutSeconds: 1
+        initialDelaySeconds: 10
+        httpGet:
+          path: /actuator/health
+          port: 8080
+  service:
+    ports:
+    - port: 8080
+      name: https
+  rbac:
+    create: true
+    serviceAccount:
+      create: true
+      enabled: true
+  configMap:
+   enabled: false
+mysql:
+  existingSecret: catalog-sql-secret
+  replication:
+    enabled: false
+  master:
+    securityContext:
+      enabled: false
+    
+ 
