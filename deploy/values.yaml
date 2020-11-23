@@ -5,8 +5,6 @@ application:
     additionalLabels:
       appCategory: "backend"
     annotations:
-    podLabels:
-      app: catalog
     volumes: {}
     image:
       repository: stakater/stakater-nordmart-catalog
