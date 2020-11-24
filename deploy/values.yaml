@@ -9,6 +9,14 @@ application:
     image:
       repository: stakater/stakater-nordmart-catalog
       tag: v0.0.3
+    resources: 
+      limits:
+        memory: 1Gi
+        cpu: 0.5
+      requests:
+        memory: 128Mi
+        cpu: 0.1
+  
     env:
     - name: MYSQL_USER
       valueFrom:
