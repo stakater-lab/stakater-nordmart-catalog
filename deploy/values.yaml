@@ -9,6 +9,13 @@ application:
     image:
       repository: stakater/stakater-nordmart-catalog
       tag: v0.0.3
+    resources: 
+      limits:
+        memory: 1Gi 
+        cpu: 0.5
+      requests:
+        memory: 128Mi
+        cpu: 0.1
     env:
     - name: MYSQL_USER
       valueFrom:
@@ -27,7 +34,7 @@ application:
     - name: KEYCLOAK_REALM
       value: "nordmart"
     - name: KEYCLOAK_URL
-      value: "https://keycloak-NAMESPACE.DOMAIN/auth/"
+      value: "https://iam-keycloak-nordmart-dev.apps.binero.06p407u4.kubeapp.cloud/auth/"
     - name: KEYCLOAK_CLIENT_BACKEND
       value: "stakater-nordmart-backend"
     - name: KEYCLOAK_CLIENT_SECRET_KEY
