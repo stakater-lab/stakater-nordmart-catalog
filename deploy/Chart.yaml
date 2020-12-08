@@ -5,6 +5,9 @@ dependencies:
 - name: mysql
   version: 7.1.0
   repository: "https://charts.bitnami.com/bitnami"
+- name: application
+  version: 0.0.29
+  repository: https://stakater.github.io/stakater-charts  
 
 # A chart can be either an 'application' or a 'library' chart.
 #
