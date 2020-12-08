@@ -28,3 +28,4 @@ USER 1001
 # Set Entrypoint
 ENTRYPOINT exec java $JAVA_OPTS -jar artifacts/app.jar
 
+
