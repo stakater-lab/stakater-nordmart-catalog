@@ -105,7 +105,8 @@ The following dependencies are needed to expose micrometer and application metri
 
 
 
-**Startup configuration**
+
+`**Startup configuration**
 
 By default, application synchronizes state of the database on the startup with Kafka. This is helpful
 during testing. You can disable it by setting false to the kafka.sync.onstartup property.
