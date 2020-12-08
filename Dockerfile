@@ -29,3 +29,4 @@ USER 1001
 ENTRYPOINT exec java $JAVA_OPTS -jar artifacts/app.jar
 
 
+
