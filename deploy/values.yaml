@@ -1,7 +1,7 @@
 application:
   applicationName: "catalog"
   deployment:
-    imagePullSecrets: nexus-creds
+    imagePullSecrets: nexus-docker-config-forked
     additionalLabels:
       appCategory: "backend"
     annotations:
@@ -18,14 +18,11 @@ application:
         cpu: 0.1
     env:
     - name: MYSQL_USER
-      valueFrom:
-        secretKeyRef:
-          name: catalog-sql-secret
-          key: mysql-username
+      value: catalog
     - name: MYSQL_PASSWORD
       valueFrom:
         secretKeyRef:
-          name: catalog-sql-secret
+          name: catalog-sql
           key: mysql-password
     - name: MYSQL_HOST
       value: "mysql-svc"
@@ -76,8 +73,11 @@ application:
    enabled: false
 mysql:
   existingSecret: catalog-sql-secret
+  fullnameOverride: catalog-sql
   replication:
     enabled: false
+  auth:
+    username: catalog
   master:
     securityContext:
       enabled: false
