@@ -72,7 +72,6 @@ application:
   configMap:
    enabled: false
 mysql:
-  existingSecret: catalog-sql-secret
   fullnameOverride: catalog-sql
   replication:
     enabled: false
