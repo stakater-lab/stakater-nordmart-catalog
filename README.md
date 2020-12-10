@@ -4,6 +4,7 @@
 
 A maven spring boot catalog application for the product catalog and product information retrieval.
 
+
 ## User scenarios
 
 **Product operations**
