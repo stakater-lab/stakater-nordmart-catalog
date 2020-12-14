@@ -1,5 +1,19 @@
 application:
   applicationName: "catalog"
+  configMap:
+    enabled: true
+    files:
+    - nameSuffix: ""
+      data:
+        MYSQL_USER: "catalog"
+        MYSQL_HOST:  "catalog-sql"
+        MYSQL_DB_NAME: "catalog"
+        KEYCLOAK_CLIENT_SECRET_KEY: "7672aea2-81ff-4aa2-affe-daf3bad10334"
+        JAEGER_ENDPOINT: "http://jaeger-collector.istio-system:14268/api/traces"
+        KEYCLOAK_REALM: "nordmart"
+        KEYCLOAK_URL: "https://iam-keycloak-nordmart-dev.apps.binero.06p407u4.kubeapp.cloud/auth/"
+        KEYCLOAK_CLIENT_BACKEND: "stakater-nordmart-backend"
+        KAFKA_ADDRESS: "nordmart-kafka-bootstrap:9092"
   deployment:
     imagePullSecrets: nexus-docker-config-forked
     additionalLabels:
@@ -16,31 +30,15 @@ application:
       requests:
         memory: 128Mi
         cpu: 0.1
+    envFrom:
+    - type: configmap
+      name: ""   
     env:
-    - name: MYSQL_USER
-      value: catalog
     - name: MYSQL_PASSWORD
       valueFrom:
         secretKeyRef:
           name: catalog-sql
           key: mysql-password
-    - name: MYSQL_HOST
-      value: "mysql-svc"
-    - name: MYSQL_DB_NAME
-      value: "catalog"
-    - name: KEYCLOAK_REALM
-      value: "nordmart"
-    - name: KEYCLOAK_URL
-      value: "https://iam-keycloak-nordmart-dev.apps.binero.06p407u4.kubeapp.cloud/auth/"
-    - name: KEYCLOAK_CLIENT_BACKEND
-      value: "stakater-nordmart-backend"
-    - name: KEYCLOAK_CLIENT_SECRET_KEY
-      value: "7672aea2-81ff-4aa2-affe-daf3bad10334"
-    - name: KAFKA_ADDRESS
-      value: "nordmart-kafka-bootstrap:9092"
-    - name: JAEGER_ENDPOINT
-      value: "http://jaeger-collector.istio-system:14268/api/traces"
-  
     probes:
       readinessProbe:
         failureThreshold: 3
@@ -69,8 +67,7 @@ application:
     serviceAccount:
       create: true
       enabled: true
-  configMap:
-   enabled: false
+
 mysql:
   fullnameOverride: catalog-sql
   replication:
