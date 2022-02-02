@@ -11,7 +11,7 @@
     <description>Nordmart Catalog Service with Spring Boot</description>
     <properties>
         <spring-boot.version>2.2.4.RELEASE</spring-boot.version>
-        <postgresql.version>9.4.1212</postgresql.version>
+        <postgresql.version>42.2.25</postgresql.version>
         <java.version>1.8</java.version>
         <lombok.version>1.18.10</lombok.version>
         <mapstruct.version>1.3.1.Final</mapstruct.version>
